@@ -1,13 +1,13 @@
 import React from "react";
-// import "./styles.css";
+import styles from "./ExperienceBar.module.css";
 
 const ExperienceBar: React.FC = () => {
   return (
-    <header className="experience-bar">
+    <header className={styles.experienceBar}>
       <span>0 xp</span>
       <div>
         <div style={{ width: "50%" }} />
-        <span className="current-exp" style={{ left: "50%" }}>
+        <span className={styles.currentExp} style={{ left: "50%" }}>
           300 xp
         </span>
       </div>
