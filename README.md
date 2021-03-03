@@ -16,7 +16,7 @@
 <br>
 
 <p align="center">
-  <img alt="MoveIt" src="" width="100%">
+  <img alt="MoveIt" src="./github/moveItApp" width="100%">
 </p>
 
 ## 🚀 Technologies
