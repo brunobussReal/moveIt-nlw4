@@ -55,7 +55,6 @@ $ yarn start
 
 - create mobile version with react native
 - Spash screen on React Native
-- User Onboarding
 
 ## :memo: License
 
