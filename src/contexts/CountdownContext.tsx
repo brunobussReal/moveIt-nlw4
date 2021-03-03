@@ -54,7 +54,7 @@ export function CountdownProvider({ children }: CountdownProviderProps) {
       countdownTimeout = setTimeout(() => {
         setTime(time - 1);
       }, 1000);
-    } else if (time === 0) {
+    } else if (isActive && time === 0) {
       setHasFinished(true);
       setIsActive(false);
       startNewChallenge();

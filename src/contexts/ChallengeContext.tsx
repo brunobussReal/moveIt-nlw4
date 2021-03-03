@@ -1,9 +1,13 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
 import challenges from "../../src/challenges.json";
+import Cookies from "js-cookie";
 
 interface ChallengesProviderProps {
   children: ReactNode;
+  level: number;
+  currentExperience: number;
+  challengesCompleted: number;
 }
 
 interface Challenge {
@@ -25,14 +29,30 @@ interface ChallengesContextData {
 
 export const challengesContext = createContext({} as ChallengesContextData);
 
-export function ChallengesProvider({ children }: ChallengesProviderProps) {
-  const [level, setLevel] = useState(1);
-  const [currentExperience, setCurrentExperience] = useState(0);
-  const [challengesCompleted, setChallengesCompleted] = useState(0);
-
-  const [activeChallenges, setActiveChallenges] = useState(null);
+export function ChallengesProvider({
+  children,
+  ...rest
+}: ChallengesProviderProps) {
+  const [level, setLevel] = useState(rest.level ?? 1);
+  const [currentExperience, setCurrentExperience] = useState(
+    rest.currentExperience ?? 0
+  );
+  const [challengesCompleted, setChallengesCompleted] = useState(
+    rest.challengesCompleted ?? 0
+  );
+  const [activeChallenges, setActiveChallenges] = useState<Challenge>(null);
 
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2); //method used by some rpg games
+
+  useEffect(() => {
+    Notification.requestPermission();
+  }, []);
+
+  useEffect(() => {
+    Cookies.set("level", String(level));
+    Cookies.set("currentExperience", String(currentExperience));
+    Cookies.set("challengesCompleted", String(challengesCompleted));
+  }, [level, currentExperience, challengesCompleted]);
 
   function levelUp() {
     setLevel(level + 1);
@@ -42,7 +62,15 @@ export function ChallengesProvider({ children }: ChallengesProviderProps) {
     const randomChallenges = Math.floor(Math.random() * challenges.length);
     const challenge = challenges[randomChallenges];
 
-    setActiveChallenges(challenge);
+    setActiveChallenges(challenge as Challenge);
+
+    if (Notification.permission === "granted") {
+      new Audio("/notification.mp3").play();
+      new Notification("New Challenge!!!", {
+        body: `Complete the challenge and earn ${challenge.amount} xp`,
+        silent: false,
+      });
+    }
   }
 
   function resetChallenge() {
