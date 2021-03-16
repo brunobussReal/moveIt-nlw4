@@ -1,5 +1,6 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
+import GoogleLogin from "react-google-login";
 
 import ChallengeBox from "../components/ChallengeBox";
 import CompletedChallenges from "../components/CompletedChallenges";
@@ -8,7 +9,7 @@ import ExperienceBar from "../components/ExperienceBar";
 import Profile from "../components/Profile";
 import { ChallengesProvider } from "../contexts/ChallengeContext";
 import { CountdownProvider } from "../contexts/CountDownContext";
-import styles from "./Home.module.css";
+import styles from "../styles/pages/Home.module.css";
 
 interface HomeProps {
   level: number;
@@ -21,6 +22,20 @@ export default function Home({
   currentExperience,
   challengesCompleted,
 }: HomeProps) {
+  // const handleLogin = async (googleData) => {
+  //   const response = await fetch("/api/v1/auth/google", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       token: googleData.tokenId,
+  //     }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+  //   const data = await response.json();
+  //   // store returned user somehow
+  // };
+
   return (
     <ChallengesProvider
       level={level}
@@ -38,6 +53,13 @@ export default function Home({
           <section>
             <div className={styles.cycleContainer}>
               <Profile />
+              {/* <GoogleLogin
+                clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                buttonText="Log in with Google"
+                cookiePolicy={"single_host_origin"}
+                onSuccess={handleLogin}
+                onFailure={handleLogin}
+              /> */}
               <CompletedChallenges />
               <CountDown />
             </div>

@@ -1,21 +1,47 @@
 import React, { useContext } from "react";
+import { useSession, signIn, signOut } from "next-auth/client";
+
 import { challengesContext } from "../../contexts/ChallengeContext";
+import { FiLogOut } from "react-icons/fi";
 
 import styles from "./Profile.module.css";
 
 const Profile: React.FC = () => {
   const { level } = useContext(challengesContext);
+  const [session] = useSession();
+  session && console.log(session.user);
+
+  const handleSignIn = (e: any) => {
+    e.preventDefault();
+    signIn();
+  };
+
+  const handleSignOut = (e: any) => {
+    e.preventDefault();
+    signOut();
+  };
+
   return (
     <div className={styles.profileContainer}>
-      <img src="https://github.com/brunobussReal.png" alt="Bruno Buss" />
-      <div>
-        <strong>Bruno Buss</strong>
-        <p>
-          {/* next js identifica automaticamente a pasta public */}
-          <img src="icons/level.svg" alt="Level" />
-          Level {level}
-        </p>
-      </div>
+      {session ? (
+        <>
+          <img src={session.user.image} alt="Bruno Buss" />
+          <div>
+            <strong>{session.user.name}</strong>
+            <FiLogOut onClick={handleSignOut} />
+
+            <p>
+              {/* next js identifica automaticamente a pasta public */}
+              <img src="icons/level.svg" alt="Level" />
+              Level {level}
+            </p>
+          </div>
+        </>
+      ) : (
+        <button onClick={handleSignIn} className={styles.loginButton}>
+          Sign in
+        </button>
+      )}
     </div>
   );
 };
