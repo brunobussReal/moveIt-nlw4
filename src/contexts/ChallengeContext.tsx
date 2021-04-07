@@ -1,7 +1,5 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import Cookies from "js-cookie";
-
-import challenges from "../../src/challenges.json";
 import LevelUpModal from "../components/LevelUpModal";
 
 interface ChallengesProviderProps {
@@ -9,9 +7,11 @@ interface ChallengesProviderProps {
   level: number;
   currentExperience: number;
   challengesCompleted: number;
+  activeChallenges: any;
 }
 
-interface Challenge {
+export interface Challenge {
+  id: string;
   type: "body" | "eye";
   description: string;
   amount: number;
@@ -36,6 +36,7 @@ export function ChallengesProvider({
   children,
   ...rest
 }: ChallengesProviderProps) {
+  const [challenges, setChallenges] = useState([]);
   const [level, setLevel] = useState(rest.level ?? 1);
   const [currentExperience, setCurrentExperience] = useState(
     rest.currentExperience ?? 0
@@ -43,20 +44,29 @@ export function ChallengesProvider({
   const [challengesCompleted, setChallengesCompleted] = useState(
     rest.challengesCompleted ?? 0
   );
-  const [activeChallenges, setActiveChallenges] = useState<Challenge>(null);
+  const [activeChallenges, setActiveChallenges] = useState<Challenge>(
+    rest.activeChallenges ?? null
+  );
   const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false);
 
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2); //method used by some rpg games
 
   useEffect(() => {
     Notification.requestPermission();
+    async function getData() {
+      const res = await fetch("http://localhost:3000/api/challenges");
+      const json = await res.json();
+      setChallenges(json);
+    }
+    getData();
   }, []);
 
   useEffect(() => {
     Cookies.set("level", String(level));
     Cookies.set("currentExperience", String(currentExperience));
     Cookies.set("challengesCompleted", String(challengesCompleted));
-  }, [level, currentExperience, challengesCompleted]);
+    Cookies.set("activeChallenges", JSON.stringify(activeChallenges));
+  }, [level, currentExperience, challengesCompleted, activeChallenges]);
 
   function levelUp() {
     setLevel(level + 1);
@@ -68,17 +78,19 @@ export function ChallengesProvider({
   }
 
   function startNewChallenge() {
-    const randomChallenges = Math.floor(Math.random() * challenges.length);
-    const challenge = challenges[randomChallenges];
+    if (challenges) {
+      const randomChallenges = Math.floor(Math.random() * challenges.length);
+      const challenge = challenges[randomChallenges];
 
-    setActiveChallenges(challenge as Challenge);
+      setActiveChallenges(challenge as Challenge);
 
-    if (Notification.permission === "granted") {
-      new Audio("/notification.mp3").play();
-      new Notification("New Challenge!!!", {
-        body: `Complete the challenge and earn ${challenge.amount} xp`,
-        silent: false,
-      });
+      if (Notification.permission === "granted") {
+        new Audio("/notification.mp3").play();
+        new Notification("New Challenge!!!", {
+          body: `Complete the challenge and earn ${challenge.amount} xp`,
+          silent: false,
+        });
+      }
     }
   }
 
