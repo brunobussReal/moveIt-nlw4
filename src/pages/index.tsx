@@ -23,13 +23,12 @@ export default function Home({
   challengesCompleted,
   activeChallenges,
 }: HomeProps) {
-  console.log(JSON.parse(activeChallenges));
   return (
     <ChallengesProvider
       level={level}
       currentExperience={currentExperience}
       challengesCompleted={challengesCompleted}
-      activeChallenges={JSON.parse(activeChallenges)}
+      activeChallenges={activeChallenges ? JSON.parse(activeChallenges) : null}
     >
       <CountdownProvider>
         <main className={styles.container}>
