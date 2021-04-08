@@ -50,6 +50,17 @@ $ yarn install
 # Run
 $ yarn start
 ```
+Before running the app you need to create a ```.env.local``` file in the root of the project with the following information:
+```
+GITHUB_ID=GITHUB PUBLIC KEY
+GITHUB_SECRET=GITHUB SECRET KEY
+GOOGLE_ID=GOOGLE PUBLIC KEY
+GOOGLE_SECRET=GOOGLE SECRET KEY
+FACEBOOK_ID=FACEBOOK PUBLIC KEY
+FACEBOOK_SECRET=FACEBOOK SECRET KEY
+NEXTAUTH_URL=http://localhost:3000
+MONGO_URL=DATABASE URI
+```
 
 ## 🧠 Next steps
 
