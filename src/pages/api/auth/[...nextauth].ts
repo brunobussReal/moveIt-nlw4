@@ -18,34 +18,34 @@ const providers = [
 
 const callbacks = {} as any;
 
-callbacks.signIn = async function signIn(user, account, metadata) {
-  if (account.provider === "github") {
-    const githubUser = {
-      id: metadata.id,
-      login: metadata.login,
-      name: metadata.name,
-      avatar: user.image,
-    };
+// callbacks.signIn = async function signIn(user, account, metadata) {
+//   if (account.provider === "github") {
+//     const githubUser = {
+//       id: metadata.id,
+//       login: metadata.login,
+//       name: metadata.name,
+//       avatar: user.image,
+//     };
 
-    // user.accessToken = await getTokenFromYourAPIServer("github", githubUser);
-    return true;
-  }
+//     // user.accessToken = await getTokenFromYourAPIServer("github", githubUser);
+//     return true;
+//   }
 
-  return false;
-};
+//   return false;
+// };
 
-callbacks.jwt = async function jwt(token, user) {
-  if (user) {
-    token = { accessToken: user.accessToken };
-  }
+// callbacks.jwt = async function jwt(token, user) {
+//   if (user) {
+//     token = { accessToken: user.accessToken };
+//   }
 
-  return token;
-};
+//   return token;
+// };
 
-callbacks.session = async function session(session, token) {
-  session.accessToken = token.accessToken;
-  return session;
-};
+// callbacks.session = async function session(session, token) {
+//   session.accessToken = token.accessToken;
+//   return session;
+// };
 
 const options = {
   providers,
