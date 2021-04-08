@@ -50,7 +50,7 @@ $ yarn install
 # Run
 $ yarn start
 ```
-Before running the app you need to create a .env.local file in the root of the project with the following information:
+Before running the app you need to create a ```.env.local``` file in the root of the project with the following information:
 ```
 GITHUB_ID=GITHUB PUBLIC KEY
 GITHUB_SECRET=GITHUB SECRET KEY
