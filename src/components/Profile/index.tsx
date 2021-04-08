@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useSession, signIn, signOut } from "next-auth/client";
+import Image from "next/image";
 
 import { challengesContext } from "../../contexts/ChallengeContext";
 import { FiLogOut } from "react-icons/fi";
@@ -25,7 +26,14 @@ const Profile: React.FC = () => {
     <div className={styles.profileContainer}>
       {session ? (
         <>
-          <img src={session.user.image} alt="Bruno Buss" />
+          <div className={styles.avatarWrapper}>
+            <Image
+              width={1000}
+              height={1000}
+              src={session.user.image}
+              alt="Bruno Buss"
+            />
+          </div>
           <div>
             <strong>{session.user.name}</strong>
             <FiLogOut onClick={handleSignOut} />
