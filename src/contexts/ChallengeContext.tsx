@@ -55,7 +55,9 @@ export function ChallengesProvider({
     Notification.requestPermission();
     async function getData() {
       try {
-        const res = await fetch("http://moveit-nlw4.vercel.app/api/challenges");
+        const res = await fetch(
+          "https://move-it-nlw4-woad.vercel.app//api/challenges"
+        );
         const json = await res.json();
         setChallenges(json);
       } catch (error) {
