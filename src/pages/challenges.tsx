@@ -6,7 +6,7 @@ const Challenge: React.FC = ({ data }: any) => {
 };
 
 export async function getStaticProps(context) {
-  const res = await fetch("http://localhost:3000/api/challenges");
+  const res = await fetch("http://moveit-nlw4.vercel.app/api/challenges");
   const json = await res.json();
   return {
     props: {
