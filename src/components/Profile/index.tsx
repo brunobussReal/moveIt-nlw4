@@ -31,7 +31,7 @@ const Profile: React.FC = () => {
               width={1000}
               height={1000}
               src={session.user.image}
-              alt="Bruno Buss"
+              alt={session.user.name}
             />
           </div>
           <div>
