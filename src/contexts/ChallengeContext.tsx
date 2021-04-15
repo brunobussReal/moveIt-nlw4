@@ -54,9 +54,13 @@ export function ChallengesProvider({
   useEffect(() => {
     Notification.requestPermission();
     async function getData() {
-      const res = await fetch("http://moveit-nlw4.vercel.app/api/challenges");
-      const json = await res.json();
-      setChallenges(json);
+      try {
+        const res = await fetch("http://moveit-nlw4.vercel.app/api/challenges");
+        const json = await res.json();
+        setChallenges(json);
+      } catch (error) {
+        setChallenges(null);
+      }
     }
     getData();
   }, []);
