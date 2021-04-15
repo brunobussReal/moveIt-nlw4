@@ -1,6 +1,6 @@
 # Demo
 
-This app demo is hosted in Vercel, and you can check it [here](https://move-it-nlw4-woad.vercel.app/)
+This app demo is hosted in Vercel, and you can check it [here](https://move-it-nlw4-fo07u76t4-brunobussreal.vercel.app)
 
 <br>
 
