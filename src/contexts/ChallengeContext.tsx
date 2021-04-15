@@ -56,7 +56,7 @@ export function ChallengesProvider({
     async function getData() {
       try {
         const res = await fetch(
-          "https://move-it-nlw4-r0m0c6d58-brunobussreal.vercel.app/api/challenges"
+          "https://move-it-nlw4-woad.vercel.app/api/challenges"
         );
         const json = await res.json();
         setChallenges(json);
