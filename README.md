@@ -52,7 +52,7 @@ $ git clone https://github.com/brunobussReal/moveit-nlw4
 $ yarn install
 
 # Run
-$ yarn start
+$ yarn dev
 ```
 Before running the app you need to create a ```.env.local``` file in the root of the project with the following information:
 ```
