@@ -1,6 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import LevelUpModal from "../components/LevelUpModal";
+import challenges from "../challenges.json";
 
 interface ChallengesProviderProps {
   children: ReactNode;
@@ -36,7 +37,7 @@ export function ChallengesProvider({
   children,
   ...rest
 }: ChallengesProviderProps) {
-  const [challenges, setChallenges] = useState([]);
+  // const [challenges, setChallenges] = useState([]);
   const [level, setLevel] = useState(rest.level ?? 1);
   const [currentExperience, setCurrentExperience] = useState(
     rest.currentExperience ?? 0
@@ -53,18 +54,18 @@ export function ChallengesProvider({
 
   useEffect(() => {
     Notification.requestPermission();
-    async function getData() {
-      try {
-        const res = await fetch(
-          "https://move-it-nlw4-woad.vercel.app/api/challenges"
-        );
-        const json = await res.json();
-        setChallenges(json);
-      } catch (error) {
-        setChallenges(null);
-      }
-    }
-    getData();
+    // async function getData() {
+    //   try {
+    //     const res = await fetch(
+    //       "https://move-it-nlw4-woad.vercel.app/api/challenges"
+    //     );
+    //     const json = await res.json();
+    //     setChallenges(json);
+    //   } catch (error) {
+    //     setChallenges(null);
+    //   }
+    // }
+    // getData();
   }, []);
 
   useEffect(() => {

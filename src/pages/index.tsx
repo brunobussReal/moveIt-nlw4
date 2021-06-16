@@ -6,7 +6,7 @@ import CompletedChallenges from "../components/CompletedChallenges";
 import CountDown from "../components/CountDown";
 import ExperienceBar from "../components/ExperienceBar";
 import Profile from "../components/Profile";
-import { Challenge, ChallengesProvider } from "../contexts/ChallengeContext";
+import { ChallengesProvider } from "../contexts/ChallengeContext";
 import { CountdownProvider } from "../contexts/CountdownContext";
 import styles from "../styles/pages/Home.module.css";
 
